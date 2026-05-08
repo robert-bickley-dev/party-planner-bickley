@@ -30,7 +30,7 @@ async function getEvent(id) {
     // Receive data and update state
     const result = await response.json();
     console.debug(result);
-    events.push(result);
+    events.push(result.data);
     // Render
     render();
   } catch (error) {
@@ -45,7 +45,7 @@ async function getEvents() {
     console.debug(response);
     const result = await response.json();
     console.debug(result);
-    events = result.content;
+    events = result.data;
     render();
   } catch (error) {
     console.error(error);
@@ -58,6 +58,10 @@ async function getEvents() {
 // === Components ===
 
 // Party list component
+function EventList(events) {
+  const $ul = document.createElement("ul");
+  const $lis = events.map(events.name);
+}
 //      Click listener event updates state by fetching single party info from API
 //      (Optional) CSS Styling for selected party
 
