@@ -12,7 +12,7 @@
 // State variables
 //      Party List [] containing Party shaped objects
 let events = [];
-let selectedEvent;
+let selectedEvent = null;
 
 // Fetch functions for the base API
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
@@ -45,7 +45,7 @@ async function getEvents() {
     console.debug(response);
     const result = await response.json();
     console.debug(result);
-    events = result;
+    events = result.content;
     render();
   } catch (error) {
     console.error(error);
@@ -68,9 +68,15 @@ async function getEvents() {
 
 // === Render ===
 
-// Header
-// Party list
-// Party details
+function render() {
+  const $app = document.querySelector("#app");
+  // Header, party list, party details
+  $app.innerHTML = `
+    <h1>Party Planner</h1>
+    <PartyList></PartyList>
+    <PartyDetails></PartyDetails>
+    `;
+}
 
 // Pass through state variables
 
