@@ -12,7 +12,22 @@ const API = BASE + COHORT;
 
 // State functions
 //      Get single party (w/render)
+async function getEvent() {
+  // Try & Catch
+  try {
+    // Locate API endpoint (single ID)
+  } catch {}
+
+  // Receive data and update state
+  // Render
+}
 //      Get all parties (w/render)
+async function getEvents() {
+  // Try & Catch
+  // Locate API endpoint (All events)
+  // Receive data and update state
+  // Render
+}
 //      (Optional) Get guests
 //      (Optional) Sort guests
 
