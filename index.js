@@ -1,5 +1,14 @@
 // === State ===
 
+/**
+ * @typedef Event
+ * @property {number} id
+ * @property {string} name
+ * @property {string} description
+ * @property {date} date
+ * @property {string} location
+ */
+
 // State variables
 //      Party List [] containing Party shaped objects
 let events = [];
@@ -16,6 +25,7 @@ async function getEvent() {
   // Try & Catch
   try {
     // Locate API endpoint (single ID)
+    const response = await fetch("");
   } catch {}
 
   // Receive data and update state
