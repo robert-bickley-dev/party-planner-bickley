@@ -1,4 +1,6 @@
 // === State ===
+let events = [];
+let selectedEvent;
 
 // State variables
 //      Party List [] containing Party shaped objects
