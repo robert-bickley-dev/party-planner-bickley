@@ -1,11 +1,14 @@
 // === State ===
-let events = [];
-let selectedEvent;
 
 // State variables
 //      Party List [] containing Party shaped objects
+let events = [];
+let selectedEvent;
 
-// Fetch functions for the API
+// Fetch functions for the base API
+const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
+const COHORT = "2604-ROBERT";
+const API = BASE + COHORT;
 
 // State functions
 //      Get single party (w/render)
