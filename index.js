@@ -21,23 +21,37 @@ const API = BASE + COHORT;
 
 // State functions
 //      Get single party (w/render)
-async function getEvent() {
+async function getEvent(id) {
   // Try & Catch
   try {
     // Locate API endpoint (single ID)
-    const response = await fetch("");
-  } catch {}
-
-  // Receive data and update state
-  // Render
+    const response = await fetch(API + "/events" + "/" + id);
+    console.debug(response);
+    // Receive data and update state
+    const result = await response.json();
+    console.debug(result);
+    events.push(result);
+    // Render
+    render();
+  } catch (error) {
+    console.error(error);
+  }
 }
+
 //      Get all parties (w/render)
 async function getEvents() {
-  // Try & Catch
-  // Locate API endpoint (All events)
-  // Receive data and update state
-  // Render
+  try {
+    const response = await fetch(API + "/events");
+    console.debug(response);
+    const result = await response.json();
+    console.debug(result);
+    events = result;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
 }
+
 //      (Optional) Get guests
 //      (Optional) Sort guests
 
@@ -61,3 +75,4 @@ async function getEvents() {
 // Pass through state variables
 
 // Render
+render();
