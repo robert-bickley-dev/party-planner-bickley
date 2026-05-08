@@ -57,13 +57,21 @@ async function getEvents() {
 
 // === Components ===
 
+// Party list item component
+function EventListItem(event) {
+  const $li = document.createElement("li");
+  // Click listener event updates state by fetching single party info from API
+  $li.addEventListener("click", () => getEvent(event.id));
+  return $li;
+  // (Optional) CSS Styling for selected party
+}
+
 // Party list component
 function EventList(events) {
   const $ul = document.createElement("ul");
-  const $lis = events.map(events.name);
+
+  events.map(events.name);
 }
-//      Click listener event updates state by fetching single party info from API
-//      (Optional) CSS Styling for selected party
 
 // Party details component
 //      Name & ID, date, location, description, (Optional) guests
