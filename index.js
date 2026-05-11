@@ -108,9 +108,17 @@ function render() {
   // Header, party list, party details
   $app.innerHTML = `
     <h1>Event Planner</h1>
-    <EventList></EventList>
-    <EventDetails></EventDetails>
-    `;
+    <main>
+      <section>
+        <h2>Events List</h2>
+        <EventList></EventList>
+      </section>
+      <section id="selected">
+        <h2>Event Details</h2>
+        <EventDetails></EventDetails>
+      </section>
+    </main>    
+  `;
 }
 
 // Pass through state variables
