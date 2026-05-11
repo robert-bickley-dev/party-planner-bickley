@@ -99,6 +99,8 @@ function EventListItem(event) {
 function EventsList() {
   // Create a container for list events
   const $ul = document.createElement("ul");
+  // add class for CSS styling
+  $ul.classList.add("events");
   // Take the events array from state -> transform each element into a DOM object
   const $events = events.map(EventListItem);
   // Populate the $ul with that array
