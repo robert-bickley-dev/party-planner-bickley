@@ -14,6 +14,7 @@
 let events = [];
 let selectedEvent;
 let rsvps = [];
+let guests = [];
 
 // Fetch functions for the base API
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
@@ -39,7 +40,7 @@ async function getEvent(id) {
   }
 }
 
-//      Get all parties (w/render)
+// Get all parties (w/render)
 async function getEvents() {
   try {
     const response = await fetch(API + "/events");
@@ -53,7 +54,7 @@ async function getEvents() {
   }
 }
 
-//      (Optional) Get guests
+// (Optional) Get guests
 async function getRsvps() {
   try {
     const response = await fetch(API + "/rsvps");
@@ -64,7 +65,17 @@ async function getRsvps() {
     console.error(error);
   }
 }
-//      (Optional) Sort guests
+// (Optional) Get Guests
+async function getGuests() {
+  try {
+    const response = await fetch(API + "/guests");
+    const result = await response.json();
+    guests = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // === Components ===
 
