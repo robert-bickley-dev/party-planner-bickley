@@ -68,12 +68,35 @@ function EventListItem(event) {
 
 // Party list component
 function EventList(events) {
+  // Create a container for list events
   const $ul = document.createElement("ul");
-
-  events.map(events.name);
+  // Take the events array from state -> transform each element into a DOM object
+  const $events = events.map(EventListItem);
+  // Populate the $ul with that array
+  $ul.replaceChildren(...$events);
+  // -> return the list
+  return $ul;
 }
 
 // Party details component
+function SelectedEvent() {
+  if (!selectedEvent) {
+    const $p = document.createElement("p");
+    $p.textContent = "Please select an event";
+    return $p;
+  }
+
+  const $event = document.createElement("section");
+  $event.innerHTML = `
+    <h2>${selectedEvent.name} #${selectedEvent.id}</h2>
+    <time datetime= "$selectedParty.date}">
+      ${selectedEvent.date.slice(0, 10)} </time>
+    <address>${selectedEvent.location}</address>
+    <p>${selectedEvent.description}</p>
+    `;
+
+  return $event;
+}
 //      Name & ID, date, location, description, (Optional) guests
 //      Message if none selected (guard)
 //
@@ -84,9 +107,9 @@ function render() {
   const $app = document.querySelector("#app");
   // Header, party list, party details
   $app.innerHTML = `
-    <h1>Party Planner</h1>
-    <PartyList></PartyList>
-    <PartyDetails></PartyDetails>
+    <h1>Event Planner</h1>
+    <EventList></EventList>
+    <EventDetails></EventDetails>
     `;
 }
 
