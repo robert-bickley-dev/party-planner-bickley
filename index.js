@@ -1,5 +1,4 @@
 // === State ===
-
 /**
  * @typedef Event
  * @property {number} id
@@ -97,7 +96,7 @@ function EventListItem(event) {
 }
 
 // Party list component
-function EventsList(events) {
+function EventsList() {
   // Create a container for list events
   const $ul = document.createElement("ul");
   // Take the events array from state -> transform each element into a DOM object
@@ -125,9 +124,28 @@ function SelectedEvent() {
       ${selectedEvent.date.slice(0, 10)} </time>
     <address>${selectedEvent.location}</address>
     <p>${selectedEvent.description}</p>
+    <GuestList></GuestList>
     `;
+  $event.querySelector("GuestList").replaceWith(GuestList());
 
   return $event;
+}
+
+function GuestList() {
+  const $ul = document.createElement("ul");
+  const guestsAtEvent = guests.filter((guest) =>
+    rsvps.find(
+      (rsvp) => rsvp.guestId === guest.id && rsvp.eventId === selectedEvent.id,
+    ),
+  );
+
+  const $guests = guestsAtEvent.map((guest) => {
+    const $guest = document.createElement("li");
+    $guest.textContent = guest.name;
+    return $guest;
+  });
+
+  return $ul;
 }
 
 // === Render ===
@@ -150,9 +168,16 @@ function render() {
   `;
   // Pass through state variables
   $app.querySelector("EventsList").replaceWith(EventsList());
-  $app.querySelector("SelectedParty").replaceWith(SelectedEvent());
+  $app.querySelector("EventDetails").replaceWith(SelectedEvent());
 }
 
 // === Render ===
 
-render();
+async function init() {
+  await getEvents();
+  await getRsvps();
+  await getGuests();
+  render();
+}
+
+init();
