@@ -67,7 +67,7 @@ function EventListItem(event) {
 }
 
 // Party list component
-function EventList(events) {
+function EventsList(events) {
   // Create a container for list events
   const $ul = document.createElement("ul");
   // Take the events array from state -> transform each element into a DOM object
@@ -111,7 +111,7 @@ function render() {
     <main>
       <section>
         <h2>Events List</h2>
-        <EventList></EventList>
+        <EventsList></EventsList>
       </section>
       <section id="selected">
         <h2>Event Details</h2>
@@ -119,9 +119,10 @@ function render() {
       </section>
     </main>    
   `;
+  // Pass through state variables
+  $app.querySelector("EventsList").replaceWith(EventsList());
+  $app.querySelector("SelectedParty").replaceWith(SelectedEvent());
 }
-
-// Pass through state variables
 
 // Render
 render();
