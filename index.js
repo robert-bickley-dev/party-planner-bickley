@@ -10,17 +10,18 @@
  */
 
 // State variables
-//      Party List [] containing Party shaped objects
+// Party List [] containing Party shaped objects
 let events = [];
-let selectedEvent = null;
+let selectedEvent;
+let rsvps = [];
 
 // Fetch functions for the base API
 const BASE = "https://fsa-crud-2aa9294fe819.herokuapp.com/api";
-const COHORT = "2604-ROBERT";
+const COHORT = "/2604-ROBERT";
 const API = BASE + COHORT;
 
 // State functions
-//      Get single party (w/render)
+// Get single party (w/render)
 async function getEvent(id) {
   // Try & Catch
   try {
@@ -30,7 +31,7 @@ async function getEvent(id) {
     // Receive data and update state
     const result = await response.json();
     console.debug(result);
-    events.push(result.data);
+    selectedEvent = result.data;
     // Render
     render();
   } catch (error) {
@@ -53,6 +54,16 @@ async function getEvents() {
 }
 
 //      (Optional) Get guests
+async function getRsvps() {
+  try {
+    const response = await fetch(API + "/rsvps");
+    const result = await response.json();
+    rsvps = result.data;
+    render();
+  } catch (error) {
+    console.error(error);
+  }
+}
 //      (Optional) Sort guests
 
 // === Components ===
@@ -60,6 +71,14 @@ async function getEvents() {
 // Party list item component
 function EventListItem(event) {
   const $li = document.createElement("li");
+
+  if (event.id === selectedEvent?.id) {
+    $li.classList.add("selected");
+  }
+
+  $li.innerHTML = `
+    <a href="#selected">${event.name}</a>
+  `;
   // Click listener event updates state by fetching single party info from API
   $li.addEventListener("click", () => getEvent(event.id));
   return $li;
@@ -79,6 +98,7 @@ function EventsList(events) {
 }
 
 // Party details component
+// Message if none selected (guard)
 function SelectedEvent() {
   if (!selectedEvent) {
     const $p = document.createElement("p");
@@ -87,6 +107,7 @@ function SelectedEvent() {
   }
 
   const $event = document.createElement("section");
+  // Name & ID, date, location, description, (Optional) guests
   $event.innerHTML = `
     <h2>${selectedEvent.name} #${selectedEvent.id}</h2>
     <time datetime= "$selectedParty.date}">
@@ -97,9 +118,6 @@ function SelectedEvent() {
 
   return $event;
 }
-//      Name & ID, date, location, description, (Optional) guests
-//      Message if none selected (guard)
-//
 
 // === Render ===
 
@@ -124,5 +142,6 @@ function render() {
   $app.querySelector("SelectedParty").replaceWith(SelectedEvent());
 }
 
-// Render
+// === Render ===
+
 render();
